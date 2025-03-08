@@ -17,67 +17,91 @@
         align-items: center;
         justify-content: center;
         height: 100vh;
+        overflow: hidden;
       }
       .container {
         background: rgba(255, 255, 255, 0.1);
         padding: 80px 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        width: 320px;
+        width: 330px;
         text-align: center;
         position: relative;
       }
       .bot-name {
         position: absolute;
-        top: 10px;
-        left: 10px;
+        top: 15px;
+        left: 20px;
         font-size: 20px;
         font-weight: bold;
-        color: gold;
+        color: #c7893a;
+        text-shadow: 0 0px 10px rgb(175, 128, 9);
+      }
+      .coin-image img {
+        user-select: none;
+        -webkit-user-drag: none;
+        pointer-events: none;
       }
       .coin-image {
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: gold;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 50px;
         font-weight: bold;
         margin: 40px auto;
-        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+        box-shadow: 0 5px 20px rgb(175 88 9);
         cursor: pointer;
         transition: transform 0.1s;
+        position: relative;
       }
       .coin-image:active {
         transform: scale(0.95);
       }
       .stats-container {
-        display: flex;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         align-items: center;
         justify-content: space-between;
         margin: 10px 0;
       }
+      .stats1{
+        font-size: 22px;
+      }
       .stats {
-        font-size: 18px;
+        display: flex;
+        font-size: 15px;
+        align-items: center;
+        gap: 5px;
       }
       .buttons-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      .boost-btn {
-        background: orange;
-        padding: 10px;
+      .boost-btn,
+      .boost-panel button {
+        background: linear-gradient(to bottom, #ff9800, #e68900);
+        padding: 12px 20px;
         font-size: 16px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
         font-weight: bold;
-        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
-        transition: 0.3s;
-        margin-left: 10px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3),
+          inset 0 2px 3px rgba(255, 255, 255, 0.3);
+        transition: all 0.2s ease-in-out;
+      }
+      .boost-btn:active,
+      .boost-panel button:active {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4),
+          inset 0 3px 5px rgba(255, 255, 255, 0.1);
+        transform: scale(0.95);
+      }
+      .boost-btn:hover,
+      .boost-panel button:hover {
+        background: linear-gradient(to bottom, #ffa726, #ff9800);
       }
       .boost-panel {
         display: none;
@@ -90,128 +114,142 @@
         border-radius: 10px;
         text-align: center;
       }
-      .boost-panel button {
-        padding: 10px;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
+      .floating-text {
+        position: absolute;
+        font-size: 20px;
         font-weight: bold;
-        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
-        transition: 0.3s;
-        width: 100%;
-        margin-top: 10px;
+        color: gold;
+        text-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+        animation: floatUp 1s ease-out forwards;
+        pointer-events: none; /* Matn ustida klik qilinmasligi uchun */
       }
 
-      .boost-panel button:first-child {
-        background: gold;
-      }
-
-      .boost-panel button:last-child {
-        background: red;
-        color: white;
-      }
-
-      .boost-panel button:hover {
-        opacity: 0.8;
-      }
-
-      .stats-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        flex-wrap: wrap;
-      }
-
-      .stats {
-        font-size: 18px;
-        margin: 5px;
-        white-space: nowrap;
-      }
-
-      .buttons-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
+      @keyframes floatUp {
+        0% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="bot-name">🚀 TapBot</div>
-      <div class="coin-image" onclick="earnCoin()">💰</div>
-
-      <!-- Coinlar, Energiya va Kuchaytirish tugmasi -->
+      <div class="bot-name">BroCoin 🫂</div>
+      <div class="stats-container">
+        <p class="stats1">BroCoins: <span id="coins">0</span></p>
+      </div>
+      <div class="coin-image" id="coin" onclick="earnCoin(event)">
+        <img src="images/bitcoins.png" alt="Bitcoin" width="240" height="240" />
+      </div>
       <div class="buttons-container">
-        <div class="stats-container">
-          <p class="stats">💰 Coinlar: <span id="coins">0</span></p>
-          <p class="stats">⚡ Energiya: <span id="energy">500</span>/500</p>
-        </div>
-
+        <p class="stats">⚡Energiya: <span id="energy">500</span>/ 500</p>
         <button class="boost-btn" onclick="openBoostPanel()">
-          🔥 Kuchaytirish
+          🔥Kuchaytirish
         </button>
       </div>
     </div>
-
     <div class="boost-panel" id="boostPanel">
       <h2>🔥 Kuchaytirish</h2>
       <p>Hozirgi bosish kuchi: <span id="boostLevel">1</span></p>
-      <p>Keyingi daraja uchun kerak: <span id="boostCost">100</span> coin</p>
-      <button onclick="upgradeBoost()">Sotib olish</button>
-      <button onclick="closeBoostPanel()">Yopish</button>
+      <p>Keyingi daraja uchun: <span id="boostCost">100</span> coin kerak</p>
+      <button onclick="upgradeBoost()">Sotib olish 🛒</button>
+      <button onclick="closeBoostPanel()">orqaga ↩️</button>
     </div>
-
     <script>
-     let coins = parseInt(localStorage.getItem("coins")) || 0;
-let energy = parseInt(localStorage.getItem("energy")) || 500;
-const maxEnergy = 500;
-let boostLevel = parseInt(localStorage.getItem("boostLevel")) || 1;
-let boostCost = parseInt(localStorage.getItem("boostCost")) || 100;
+      let coins = parseInt(localStorage.getItem("coins")) || 0;
+      let energy = parseInt(localStorage.getItem("energy")) || 500;
+      const maxEnergy = 500;
+      let boostLevel = parseInt(localStorage.getItem("boostLevel")) || 1;
+      let boostCost = parseInt(localStorage.getItem("boostCost")) || 100;
+      let lastEnergyRestore =
+        parseInt(localStorage.getItem("lastEnergyRestore")) || Date.now();
 
-document.getElementById("coins").innerText = coins;
-document.getElementById("energy").innerText = energy;
-document.getElementById("boostLevel").innerText = boostLevel;
-document.getElementById("boostCost").innerText = boostCost;
+      document.getElementById("coins").innerText = coins;
+      document.getElementById("energy").innerText = energy;
+      document.getElementById("boostLevel").innerText = boostLevel;
+      document.getElementById("boostCost").innerText = boostCost;
 
-function earnCoin() {
-  if (energy > 0) {
-    coins += boostLevel;
-    energy--;
-    localStorage.setItem("coins", coins);
-    localStorage.setItem("energy", energy);
-    document.getElementById("coins").innerText = coins;
-    document.getElementById("energy").innerText = energy;
-  }
-}
+      function earnCoin() {
+        if (energy > 0) {
+          coins += boostLevel;
+          energy--;
+          localStorage.setItem("coins", coins);
+          localStorage.setItem("energy", energy);
+          document.getElementById("coins").innerText = coins;
+          document.getElementById("energy").innerText = energy;
+        }
+      }
 
-function openBoostPanel() {
-  document.getElementById("boostPanel").style.display = "block";
-}
+      function openBoostPanel() {
+        document.getElementById("boostPanel").style.display = "block";
+      }
 
-function closeBoostPanel() {
-  document.getElementById("boostPanel").style.display = "none";
-}
+      function closeBoostPanel() {
+        document.getElementById("boostPanel").style.display = "none";
+      }
 
-function upgradeBoost() {
-  if (coins >= boostCost) {
-    coins -= boostCost;
-    boostLevel++;
-    boostCost *= 2;
-    localStorage.setItem("coins", coins);
-    localStorage.setItem("boostLevel", boostLevel);
-    localStorage.setItem("boostCost", boostCost);
-    document.getElementById("coins").innerText = coins;
-    document.getElementById("boostLevel").innerText = boostLevel;
-    document.getElementById("boostCost").innerText = boostCost;
-    alert(`🔥 Boost oshirildi! Endi har bosishda ${boostLevel} coin olasiz.`);
-  } else {
-    alert("❌ Boost uchun yetarli coin yo'q!");
-  }
-}
+      function upgradeBoost() {
+        if (coins >= boostCost) {
+          coins -= boostCost;
+          boostLevel++;
+          boostCost = Math.floor(boostCost * 1.5);
 
+          localStorage.setItem("coins", coins);
+          localStorage.setItem("boostLevel", boostLevel);
+          localStorage.setItem("boostCost", boostCost);
+
+          document.getElementById("coins").innerText = coins;
+          document.getElementById("boostLevel").innerText = boostLevel;
+          document.getElementById("boostCost").innerText = boostCost;
+        }
+      }
+
+      function restoreEnergy() {
+        let now = Date.now();
+        let elapsedMinutes = Math.floor((now - lastEnergyRestore) / 60000);
+        if (elapsedMinutes >= 5) {
+          energy = maxEnergy;
+          lastEnergyRestore = now;
+          localStorage.setItem("energy", energy);
+          localStorage.setItem("lastEnergyRestore", lastEnergyRestore);
+          document.getElementById("energy").innerText = energy;
+        }
+      }
+
+      restoreEnergy();
+      setInterval(restoreEnergy, 60000);
+      function showFloatingText(event) {
+        let floatingText = document.createElement("div");
+        floatingText.classList.add("floating-text");
+
+        // Bosilgan joyning ekrandagi koordinatalari
+        floatingText.style.left = `${event.clientX}px`;
+        floatingText.style.top = `${event.clientY}px`;
+        floatingText.innerText = `+${boostLevel}`;
+
+        document.body.appendChild(floatingText);
+
+        setTimeout(() => {
+          floatingText.remove();
+        }, 1000);
+      }
+      function earnCoin(event) {
+        if (energy > 0) {
+          coins += boostLevel;
+          energy--;
+          localStorage.setItem("coins", coins);
+          localStorage.setItem("energy", energy);
+          document.getElementById("coins").innerText = coins;
+          document.getElementById("energy").innerText = energy;
+
+          // Floating text ni chaqirish
+          showFloatingText(event);
+        }
+      }
     </script>
   </body>
 </html>
