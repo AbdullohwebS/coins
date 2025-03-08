@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tap to Earn</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: white;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 80px 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        width: 320px;
+        text-align: center;
+        position: relative;
+      }
+      .bot-name {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        color: gold;
+      }
+      .coin-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: gold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+        font-weight: bold;
+        margin: 40px auto;
+        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+        cursor: pointer;
+        transition: transform 0.1s;
+      }
+      .coin-image:active {
+        transform: scale(0.95);
+      }
+      .stats-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+      }
+      .stats {
+        font-size: 18px;
+      }
+      .buttons-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .boost-btn {
+        background: orange;
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+        transition: 0.3s;
+        margin-left: 10px;
+      }
+      .boost-panel {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+      }
+      .boost-panel button {
+        padding: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        box-shadow: 0 5px 10px rgba(255, 215, 0, 0.5);
+        transition: 0.3s;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .boost-panel button:first-child {
+        background: gold;
+      }
+
+      .boost-panel button:last-child {
+        background: red;
+        color: white;
+      }
+
+      .boost-panel button:hover {
+        opacity: 0.8;
+      }
+
+      .stats-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+
+      .stats {
+        font-size: 18px;
+        margin: 5px;
+        white-space: nowrap;
+      }
+
+      .buttons-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="bot-name">🚀 TapBot</div>
+      <div class="coin-image" onclick="earnCoin()">💰</div>
+
+      <!-- Coinlar, Energiya va Kuchaytirish tugmasi -->
+      <div class="buttons-container">
+        <div class="stats-container">
+          <p class="stats">💰 Coinlar: <span id="coins">0</span></p>
+          <p class="stats">⚡ Energiya: <span id="energy">500</span>/500</p>
+        </div>
+
+        <button class="boost-btn" onclick="openBoostPanel()">
+          🔥 Kuchaytirish
+        </button>
+      </div>
+    </div>
+
+    <div class="boost-panel" id="boostPanel">
+      <h2>🔥 Kuchaytirish</h2>
+      <p>Hozirgi bosish kuchi: <span id="boostLevel">1</span></p>
+      <p>Keyingi daraja uchun kerak: <span id="boostCost">100</span> coin</p>
+      <button onclick="upgradeBoost()">Sotib olish</button>
+      <button onclick="closeBoostPanel()">Yopish</button>
+    </div>
+
+    <script>
+     let coins = parseInt(localStorage.getItem("coins")) || 0;
+let energy = parseInt(localStorage.getItem("energy")) || 500;
+const maxEnergy = 500;
+let boostLevel = parseInt(localStorage.getItem("boostLevel")) || 1;
+let boostCost = parseInt(localStorage.getItem("boostCost")) || 100;
+
+document.getElementById("coins").innerText = coins;
+document.getElementById("energy").innerText = energy;
+document.getElementById("boostLevel").innerText = boostLevel;
+document.getElementById("boostCost").innerText = boostCost;
+
+function earnCoin() {
+  if (energy > 0) {
+    coins += boostLevel;
+    energy--;
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("energy", energy);
+    document.getElementById("coins").innerText = coins;
+    document.getElementById("energy").innerText = energy;
+  }
+}
+
+function openBoostPanel() {
+  document.getElementById("boostPanel").style.display = "block";
+}
+
+function closeBoostPanel() {
+  document.getElementById("boostPanel").style.display = "none";
+}
+
+function upgradeBoost() {
+  if (coins >= boostCost) {
+    coins -= boostCost;
+    boostLevel++;
+    boostCost *= 2;
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("boostLevel", boostLevel);
+    localStorage.setItem("boostCost", boostCost);
+    document.getElementById("coins").innerText = coins;
+    document.getElementById("boostLevel").innerText = boostLevel;
+    document.getElementById("boostCost").innerText = boostCost;
+    alert(`🔥 Boost oshirildi! Endi har bosishda ${boostLevel} coin olasiz.`);
+  } else {
+    alert("❌ Boost uchun yetarli coin yo'q!");
+  }
+}
+
+    </script>
+  </body>
+</html>
