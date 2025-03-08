@@ -134,6 +134,20 @@
           transform: translateY(-30px);
         }
       }
+      button:active, button:focus {
+    background-color: #FFA500 !important; /* Tugma rangini o‘zgartiring */
+    outline: none !important; /* Ko‘k chiziqni olib tashlash */
+    box-shadow: none !important;
+}
+.kuchaytirish-btn:active, .kuchaytirish-btn:focus {
+    background-color: #FFA500 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
     </style>
   </head>
   <body>
@@ -250,6 +264,10 @@
           showFloatingText(event);
         }
       }
+      document.querySelector(".kuchaytirish-btn").addEventListener("touchstart", function(event) {
+    event.preventDefault(); // Default effektni to‘xtatish
+}, {passive: true});
+
     </script>
   </body>
 </html>
