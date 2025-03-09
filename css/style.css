@@ -142,6 +142,25 @@ button:focus {
 button {
   -webkit-tap-highlight-color: transparent;
 }
+.boost-button {
+  position: relative;
+  z-index: 10; /* Tugmani boshqa elementlardan yuqoriroq qiladi */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Tugmaga shadow qo'shish */
+}
+
+.boost-button:active {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.boost-container {
+  position: relative;
+  z-index: 5; /* IMG yoki boshqa elementlar tugmadan pastroqda bo'ladi */
+}
+
+.boost-container img {
+  filter: none !important; /* Tasvirning effektlardan ta’sirlanmasligini ta’minlaydi */
+}
+
 
 /* MEDIA APP  */
 
