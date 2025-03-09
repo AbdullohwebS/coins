@@ -142,10 +142,6 @@ button:focus {
 button {
   -webkit-tap-highlight-color: transparent;
 }
-.coin-image:active {
-    box-shadow: none !important;
-    transform: none !important;
-}
 
 .boost-container {
   position: relative;
@@ -155,7 +151,6 @@ button {
 .boost-container img {
   filter: none !important; /* Tasvirning effektlardan ta’sirlanmasligini ta’minlaydi */
 }
-
 
 /* MEDIA APP  */
 
