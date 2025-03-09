@@ -10,6 +10,14 @@
           "user-select"
         ]
       }
-    ]
-  }
+    ],
+    "detect-css-reflows/composite": "off",
+    "detect-css-reflows/paint": "off"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not and_ff <= 122",
+    "not firefox <= 122"
+  ]
 }
