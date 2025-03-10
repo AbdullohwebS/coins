@@ -73,7 +73,6 @@ function showMessage(text, color = "gold") {
   message.style.left = "50%";
   message.style.top = "50%";
   message.style.transform = "translate(-50%, -50%)";
-  message.style.background = "rgba(0, 0, 0, 0.8)";
   message.style.padding = "12px 20px";
   message.style.borderRadius = "10px";
   message.style.fontSize = "22px";
