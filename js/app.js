@@ -5,6 +5,7 @@ const maxEnergy = 500;
 let boostLevel = parseInt(localStorage.getItem("boostLevel")) || 1;
 let boostCost = parseInt(localStorage.getItem("boostCost")) || 100;
 let lastEnergyRestore =
+document.getElementById("coin").addEventListener("click", earnCoin);
   parseInt(localStorage.getItem("lastEnergyRestore")) || Date.now();
 
 // HTML dagi elementlarni yangilash

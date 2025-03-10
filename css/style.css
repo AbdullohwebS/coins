@@ -161,19 +161,20 @@ button {
     width: 90%;
     padding: 70px 15px;
   }
-  .coin-image {
-    width: 120px;
-    height: 120px;
-    font-size: 40px;
-    margin: 60px auto;
-  }
-  .coin-image img {
-  user-select: none;
-  -webkit-user-drag: none;
-  pointer-events: none;
+
+.coin-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
 }
 
-
+.coin-image img {
+  object-fit: cover;
+  pointer-events: none;
+}
   .stats1 {
     font-size: 18px;
   }
