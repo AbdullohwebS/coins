@@ -162,12 +162,14 @@ button {
   body {
     margin: 90px auto;
     height: auto;
-    padding: 20px;
+    padding: 30px 20px;
   }
-
+  .buttons-container{
+    margin-top: 80px;
+  }
   .container {
     width: 90%;
-    padding: 70px 15px;
+    padding: 60px 15px;
   }
 
   .coin-image {
@@ -187,11 +189,12 @@ button {
   transform: scale(0.95);
 }
   .stats1 {
-    font-size: 18px;
+    font-size: 20px;
+    margin-bottom: 50px;
   }
 
   .stats {
-    font-size: 13px;
+    font-size: 18px;
   }
   .boost-btn,
   .boost-panel button {
