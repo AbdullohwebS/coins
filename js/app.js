@@ -13,6 +13,9 @@ document.getElementById("coins").innerText = coins;
 document.getElementById("energy").innerText = energy;
 document.getElementById("boostLevel").innerText = boostLevel;
 document.getElementById("boostCost").innerText = boostCost;
+document.addEventListener("gesturestart", function (e) {
+  e.preventDefault();
+});
 
 // Coin ishlash
 function earnCoin(event) {
