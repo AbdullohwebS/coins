@@ -152,7 +152,7 @@ button {
 
 @media screen and (max-width: 480px) {
   body {
-    margin: 30px auto;
+    margin: 10px auto;
     height: auto;
     padding: 20px;
   }
