@@ -1,3 +1,4 @@
+// LocalStorage ma'lumotlarini olish
 let coins = parseInt(localStorage.getItem("coins")) || 0;
 let energy = parseInt(localStorage.getItem("energy")) || 500;
 const maxEnergy = 500;
@@ -6,11 +7,13 @@ let boostCost = parseInt(localStorage.getItem("boostCost")) || 100;
 let lastEnergyRestore =
   parseInt(localStorage.getItem("lastEnergyRestore")) || Date.now();
 
+// HTML dagi elementlarni yangilash
 document.getElementById("coins").innerText = coins;
 document.getElementById("energy").innerText = energy;
 document.getElementById("boostLevel").innerText = boostLevel;
 document.getElementById("boostCost").innerText = boostCost;
 
+// Coin ishlash
 function earnCoin(event) {
   if (energy > 0) {
     coins += boostLevel;
@@ -24,27 +27,33 @@ function earnCoin(event) {
   }
 }
 
+// Floating text chiqishi
 function showFloatingText(event) {
   let floatingText = document.createElement("div");
   floatingText.classList.add("floating-text");
-  floatingText.style.left = `${event.clientX}px`;
-  floatingText.style.top = `${event.clientY}px`;
+
+  let x = event.pageX || event.touches?.[0]?.pageX;
+  let y = event.pageY || event.touches?.[0]?.pageY;
+
+  floatingText.style.left = `${x}px`;
+  floatingText.style.top = `${y}px`;
   floatingText.innerText = `+${boostLevel}`;
 
   document.body.appendChild(floatingText);
-  setTimeout(() => {
-    floatingText.remove();
-  }, 1000);
+  setTimeout(() => floatingText.remove(), 1000);
 }
 
+// Boost panelni ochish
 function openBoostPanel() {
   document.getElementById("boostPanel").style.display = "block";
 }
 
+// Boost panelni yopish
 function closeBoostPanel() {
   document.getElementById("boostPanel").style.display = "none";
 }
 
+// Boostni yangilash
 function upgradeBoost() {
   if (coins >= boostCost) {
     coins -= boostCost;
@@ -65,6 +74,7 @@ function upgradeBoost() {
   }
 }
 
+// Xabar chiqarish
 function showMessage(text, color = "gold") {
   let message = document.createElement("div");
   message.classList.add("floating-text");
@@ -82,27 +92,32 @@ function showMessage(text, color = "gold") {
   message.innerText = text;
 
   document.body.appendChild(message);
-  setTimeout(() => {
-    message.remove();
-  }, 1000);
+  setTimeout(() => message.remove(), 1000);
 }
 
+// Energiya tiklanishi
 function restoreEnergy() {
   let now = Date.now();
   let elapsedMinutes = Math.floor((now - lastEnergyRestore) / 60000);
+
   if (elapsedMinutes >= 5) {
     energy = maxEnergy;
     lastEnergyRestore = now;
     localStorage.setItem("energy", energy);
     localStorage.setItem("lastEnergyRestore", lastEnergyRestore);
     document.getElementById("energy").innerText = energy;
+    console.log("Energiya tiklandi!");
+  } else {
+    console.log(`Energiya tiklanishi uchun ${5 - elapsedMinutes} daqiqa qoldi`);
   }
 }
 
+// Energiya tiklanishini har 1 daqiqada tekshirish
 restoreEnergy();
 setInterval(restoreEnergy, 60000);
 
-document.querySelector(".kuchaytirish-btn").addEventListener(
+// Mobil uchun touch bosilishini to'xtatish
+document.querySelector(".boost-btn").addEventListener(
   "touchstart",
   function (event) {
     event.preventDefault();
