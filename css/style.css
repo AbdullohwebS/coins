@@ -127,7 +127,7 @@ button:active,
 button:focus {
   background-color: #ffa500 !important; /* Tugma rangini o‘zgartiring */
   outline: none; /* Ko‘k chiziqni olib tashlash */
-  box-shadow: none ;
+  box-shadow: none;
 }
 .kuchaytirish-btn:active,
 .kuchaytirish-btn:focus {
@@ -162,18 +162,21 @@ button {
     padding: 70px 15px;
   }
 
-.coin-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
-  background: transparent;
-}
+  .coin-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+  }
 
-.coin-image img {
-  object-fit: cover;
-  pointer-events: none;
+  .coin-image img {
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .coin-image:active {
+  transform: scale(0.95);
 }
   .stats1 {
     font-size: 18px;
