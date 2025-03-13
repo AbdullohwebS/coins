@@ -18,7 +18,6 @@ body {
   overflow: hidden;
 }
 .container {
-  /* background: rgba(255, 255, 255, 0.1); */
   padding: 80px 15px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
@@ -29,7 +28,8 @@ body {
 .bot-name {
   position: absolute;
   top: 15px;
-  left: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 20px;
   font-weight: bold;
   color: #c7893a;
@@ -61,8 +61,10 @@ body {
 .stats-container {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: 10px 0;
+  display: flex;
+  flex-direction: column;
 }
 .stats1 {
   font-size: 22px;
@@ -75,8 +77,9 @@ body {
 }
 .buttons-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 }
 .boost-btn,
 .boost-panel button {
@@ -88,6 +91,8 @@ body {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  width: 80%;
+  margin-top: 10px;
 }
 .boost-btn:active,
 .boost-panel button:active {
@@ -115,9 +120,8 @@ body {
   color: gold;
   text-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
   animation: floatUp 1s ease-out forwards;
-  pointer-events: none; /* Matn ustida klik qilinmasligi uchun */
+  pointer-events: none;
 }
-
 @keyframes floatUp {
   0% {
     opacity: 1;
@@ -130,8 +134,8 @@ body {
 }
 button:active,
 button:focus {
-  background-color: #ffa500 !important; /* Tugma rangini o‘zgartiring */
-  outline: none; /* Ko‘k chiziqni olib tashlash */
+  background-color: #ffa500 !important;
+  outline: none;
   box-shadow: none;
 }
 .kuchaytirish-btn:active,
@@ -143,21 +147,16 @@ button:focus {
 button {
   -webkit-tap-highlight-color: transparent;
 }
-
 .boost-container {
   position: relative;
-  z-index: 5; /* IMG yoki boshqa elementlar tugmadan pastroqda bo'ladi */
+  z-index: 5;
 }
-
 .boost-container img {
-  filter: none !important; /* Tasvirning effektlardan ta’sirlanmasligini ta’minlaydi */
+  filter: none !important;
 }
 * {
     -webkit-tap-highlight-color: transparent;
 }
-
-/* MEDIA APP  */
-
 @media screen and (max-width: 480px) {
   body {
     margin: 90px auto;
@@ -165,13 +164,12 @@ button {
     padding: 30px 20px;
   }
   .buttons-container{
-    margin-top: 80px;
+    margin-top: 20px;
   }
   .container {
     width: 90%;
     padding: 60px 15px;
   }
-
   .coin-image {
     display: flex;
     align-items: center;
@@ -180,19 +178,17 @@ button {
     cursor: pointer;
     background: transparent;
   }
-
   .coin-image img {
     object-fit: cover;
     pointer-events: none;
   }
   .coin-image:active {
-  transform: scale(0.95);
-}
+    transform: scale(0.95);
+  }
   .stats1 {
     font-size: 20px;
     margin-bottom: 50px;
   }
-
   .stats {
     font-size: 18px;
   }
@@ -200,23 +196,15 @@ button {
   .boost-panel button {
     padding: 10px 15px;
     font-size: 14px;
+    width: 100%;
   }
-
   .boost-panel {
     width: 80%;
     padding: 15px;
   }
-
   .floating-text {
     font-size: 24px;
   }
-  .bot-name {
-    position: static;
-    text-align: center;
-    display: block;
-    margin-bottom: 10px;
-  }
-
   .bot-name {
     position: absolute;
     top: 15px;

@@ -1,5 +1,5 @@
 // LocalStorage ma'lumotlarini olish
-let coins = parseInt(localStorage.getItem("coins")) || 0;
+let coins = parseInt(localStorage.getItem("coins")) || 10000000000000;
 let energy = parseInt(localStorage.getItem("energy")) || 500;
 const maxEnergy = 500;
 let boostLevel = parseInt(localStorage.getItem("boostLevel")) || 1;
